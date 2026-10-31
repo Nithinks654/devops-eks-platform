@@ -1,0 +1,22 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terraform.lock.hcl.backup
+
+# Environment files
+.env
+.env.*
+
+# Application
+target/
+*.class
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
