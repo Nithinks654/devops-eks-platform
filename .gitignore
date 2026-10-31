@@ -20,3 +20,7 @@ target/
 
 # Logs
 *.log
+
+# SonarQube local scanner data
+.sonar/
+**/.sonar/
