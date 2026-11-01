@@ -27,7 +27,7 @@ spec:
       containers:
         - name: demo-service
 
-          image: 625527690351.dkr.ecr.ap-southeast-2.amazonaws.com/demo-service:ec7f77ce7fb90ee455e7b17bf3774993e19aafeb
+          image: 625527690351.dkr.ecr.ap-southeast-2.amazonaws.com/demo-service:269b7fbd0200b89df3ef2c4eca4ef38561d5af99
 
           imagePullPolicy: IfNotPresent
 
