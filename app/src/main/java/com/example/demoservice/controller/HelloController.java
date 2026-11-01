@@ -11,7 +11,7 @@ public class HelloController {
     @GetMapping("/api/v1/hello")
     public Map<String, String> hello() {
         return Map.of(
-            "message", "Hello from DevOps EKS Platform!",
+            "message", "Hello from DevOps EKS Platform - Version 2.0!",
             "application", "demo-service",
             "status", "Running"
         );
@@ -21,7 +21,7 @@ public class HelloController {
     public Map<String, String> info() {
         return Map.of(
             "application", "demo-service",
-            "version", "1.0",
+            "version", "2.0",
             "environment", "development"
         );
     }

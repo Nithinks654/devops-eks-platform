@@ -6,11 +6,13 @@ on:
     branches:
       - develop
       - main
+      - feature/argocd-gitops  
 
   pull_request:
     branches:
       - develop
       - main
+      - feature/argocd-gitops  
 
 permissions:
   contents: read
@@ -93,7 +95,7 @@ jobs:
       - build-and-test
       - docker-security
 
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/feature/argocd-gitops')
 
     steps:
       - name: Checkout source code
