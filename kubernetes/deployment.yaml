@@ -1,41 +1,74 @@
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: demo-service
   namespace: demo
+  labels:
+    app: demo-service
+
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: demo-service
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
   template:
     metadata:
       labels:
         app: demo-service
+
     spec:
       containers:
         - name: demo-service
+
           image: 625527690351.dkr.ecr.ap-southeast-2.amazonaws.com/demo-service:ec7f77ce7fb90ee455e7b17bf3774993e19aafeb
+
           imagePullPolicy: IfNotPresent
+
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+
           envFrom:
             - configMapRef:
                 name: demo-service-config
             - secretRef:
-                name: demo-service-secret  
-          ports:
-            - containerPort: 8080
+                name: demo-service-secret
+
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+              scheme: HTTP
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 30
+
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 20
+              port: http
+              scheme: HTTP
             periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 40
+              port: http
+              scheme: HTTP
             periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
+
           resources:
             requests:
               cpu: 100m
@@ -43,3 +76,11 @@ spec:
             limits:
               cpu: 500m
               memory: 512Mi
+
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 10001
+            capabilities:
+              drop:
+                - ALL
