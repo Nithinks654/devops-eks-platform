@@ -24,3 +24,16 @@ target/
 # SonarQube local scanner data
 .sonar/
 **/.sonar/
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+*.tfplan
+crash.log
+
+# Terraform generated plan files
+*.tfplan
+tfplan
